@@ -1,0 +1,2 @@
+true: thread,debug
+true: use_menhir

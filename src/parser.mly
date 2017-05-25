@@ -26,11 +26,11 @@ main:
 
 eq:
 | lhs = hs EQUAL INTERROGATION {
-    print_endline (Computor.Calc.to_string lhs)
+    print_endline (Calc.to_string lhs)
 }
 | var = VAR EQUAL rhs = hs {
-    Computor.Variables.add var rhs;
-    print_endline (Computor.Calc.to_string rhs)
+    Variable.add var rhs;
+    print_endline (Calc.to_string rhs)
 }
 
 hs:
@@ -38,17 +38,17 @@ hs:
 
 expr:
 | t = token { t }
-| t1 = expr POWER t2 = expr    { Computor.Calc.power t1 t2 }
-| t1 = expr TIMES t2 = expr    { Computor.Calc.mul t1 t2 }
-| t1 = expr DIV   t2 = expr    { Computor.Calc.div t1 t2 }
-| t1 = expr MOD   t2 = expr    { Computor.Calc.modulo t1 t2 }
-| t1 = expr PLUS  t2 = expr    { Computor.Calc.add t1 t2 }
-| t1 = expr MINUS t2 = expr    { Computor.Calc.sub t1 t2 }
+| t1 = expr POWER t2 = expr    { Calc.power t1 t2 }
+| t1 = expr TIMES t2 = expr    { Calc.mul t1 t2 }
+| t1 = expr DIV   t2 = expr    { Calc.div t1 t2 }
+| t1 = expr MOD   t2 = expr    { Calc.modulo t1 t2 }
+| t1 = expr PLUS  t2 = expr    { Calc.add t1 t2 }
+| t1 = expr MINUS t2 = expr    { Calc.sub t1 t2 }
 
 token:
-| t = INT { Computor.Calc.Simple (Computor.Basic.Int t) }
-| t = FLOAT { Computor.Calc.Simple (Computor.Basic.Float t) }
-| t = INT IMAGINARY { Computor.Calc.Img (Computor.Basic.Int 0, Computor.Basic.Int t) } 
-| t = FLOAT IMAGINARY { Computor.Calc.Img (Computor.Basic.Int 0, Computor.Basic.Float t) } 
-| IMAGINARY { Computor.Calc.Img (Computor.Basic.Int 0, Computor.Basic.Int 1) }
-| var = VAR { Computor.Variables.get var }
+| t = INT { Calc.Simple (Calc.Basic.Int t) }
+| t = FLOAT { Calc.Simple (Calc.Basic.Float t) }
+| t = INT IMAGINARY { Calc.Complex (Calc.Basic.Int 0, Calc.Basic.Int t) }
+| t = FLOAT IMAGINARY { Calc.Complex (Calc.Basic.Int 0, Calc.Basic.Float t) }
+| IMAGINARY { Calc.Complex (Calc.Basic.Int 0, Calc.Basic.Int 1) }
+| var = VAR { Variable.get var }
